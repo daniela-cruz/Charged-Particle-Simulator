@@ -9,6 +9,7 @@
 import ctypes
 import os
 import subprocess
+import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
@@ -186,7 +187,26 @@ class SimulationApp:
         self.ani = FuncAnimation(self.fig, self.update, interval=15, blit=True)
         plt.show()
 
+# if __name__ == "__main__":
+#     simulation = ParticleSimulation(num_particles=50)
+#     app = SimulationApp(simulation)
+#     app.run()
+
 if __name__ == "__main__":
-    simulation = ParticleSimulation(num_particles=50)
-    app = SimulationApp(simulation)
-    app.run()
+    st.title("Advanced Particle Physics Laboratory")
+    st.write("C-Engine accelerated physics simulation by Daniela")
+
+    # יצירת הסימולציה
+    if 'sim' not in st.session_state:
+        st.session_state.sim = ParticleSimulation(num_particles=30)
+    
+    app = SimulationApp(st.session_state.sim)
+    
+    # ב-Streamlit אנחנו צריכים לולאה ידנית כדי להציג אנימציה
+    placeholder = st.empty()
+    
+    for _ in range(200): # הרצה של 200 פריימים לדוגמה
+        app.update(0)
+        with placeholder.container():
+            st.pyplot(app.fig)
+        plt.close(app.fig) # מניעת זיכרון עמוס
