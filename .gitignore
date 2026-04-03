@@ -1,0 +1,18 @@
+# C Compiled libraries
+*.dll
+*.so
+*.o
+*.exe
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments (if you use virtualenv)
+venv/
+.env/
+
+# OS specific files
+.DS_Store
+Thumbs.db
