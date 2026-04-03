@@ -141,14 +141,27 @@ if __name__ == "__main__":
 
     plot_placeholder = st.empty()
 
-    # לולאת האנימציה
+    # # לולאת האנימציה
+    # for frame in range(1000):
+    #     # עדכון הפיזיקה עם הערכים מהסליידרים של Streamlit
+    #     st.session_state.app.update(frame, g_val, b_val, e_val)
+        
+    #     # תצוגה
+    #     with plot_placeholder.container():
+    #         st.pyplot(st.session_state.app.fig)
+        
+    #     # השהייה קלה
+    #     plt.pause(0.001)
+    
+    # לולאת האנימציה המעודכנת
     for frame in range(1000):
-        # עדכון הפיזיקה עם הערכים מהסליידרים של Streamlit
+        # 1. עדכון הפיזיקה
         st.session_state.app.update(frame, g_val, b_val, e_val)
         
-        # תצוגה
+        # 2. יצירת מיכל נקי והצגת הגרף
         with plot_placeholder.container():
-            st.pyplot(st.session_state.app.fig)
+            # שימוש ב-use_container_width גורם לזה להיראות טוב בכל מסך
+            st.pyplot(st.session_state.app.fig, clear_figure=False, use_container_width=True)
         
-        # השהייה קלה
-        plt.pause(0.001)
+        # 3. זה השלב הקריטי - מניעת הצפה של הזיכרון
+        # אנחנו לא עושים plt.close() כאן כי אנחנו צריכים את ה-fig לסיבוב הבא
