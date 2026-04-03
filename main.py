@@ -5,12 +5,26 @@
     gravity, electric, and magnetic fields using a C-based engine.
 """
 
+
 import ctypes
 import os
+import subprocess
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
 from matplotlib.animation import FuncAnimation
+
+
+
+def compile_c_engine():
+    """Compiles the C engine automatically if running on Linux (Streamlit Cloud)"""
+    if os.name != 'nt':  # If NOT on Windows (i.e., Linux/Streamlit)
+        if not os.path.exists("engine.so"):
+            print("Compiling C engine for Linux...")
+            subprocess.run(["gcc", "-shared", "-o", "engine.so", "-fPIC", "src/engine.c"], check=True)
+
+# Call the compilation function
+compile_c_engine()
 
 # --- C-Engine Structure Definition ---
 class Particle(ctypes.Structure):
