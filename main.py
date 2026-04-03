@@ -15,8 +15,6 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
 from matplotlib.animation import FuncAnimation
 
-
-
 def compile_c_engine():
     """Compiles the C engine automatically if running on Linux (Streamlit Cloud)"""
     if os.name != 'nt':  # If NOT on Windows (i.e., Linux/Streamlit)
@@ -194,7 +192,7 @@ class SimulationApp:
 
 if __name__ == "__main__":
     st.title("Advanced Particle Physics Laboratory")
-    st.write("C-Engine accelerated physics simulation by Daniela")
+    st.write("C-Engine accelerated physics simulation by Daniela Goel")
 
     # יצירת הסימולציה
     if 'sim' not in st.session_state:
